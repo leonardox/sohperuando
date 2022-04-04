@@ -22,13 +22,16 @@ class Counter extends Component {
   // }
 
   handleIncrement = () => {
-    let state = {
-      cruzada: 0.0,
-      geral: 0.0,
-      expondencial: 0.0,
-      entradas: []
-    }
-    this.setState({ state });
+    this.setState({ cruzada: 0.0 });
+    this.setState({ geral: 0.0 });
+    this.setState({ expondencial: 0.0 });
+    this.setState({ entradas: [] });
+    document.querySelector('#ff').value = "";
+    document.querySelector('#fc').value = "";
+    document.querySelector('#sf').value = "";
+    document.querySelector('#sc').value = "";
+    document.querySelector('#mgc').value = "";
+    document.querySelector('#mgf').value = "";
   }
 
   // handleIncrement = (product) => {
@@ -48,13 +51,13 @@ class Counter extends Component {
     let media_geral = (parseFloat(document.querySelector('#mgc').value) +
       parseFloat(document.querySelector('#mgf').value)) / 2;
     this.setState({ geral: media_geral });
-    console.log(media_cruzada);
+    
     let media_expondencial = (media_cruzada + media_geral) / 2;
     this.setState({ expondencial: media_expondencial });
 
     let local_entradas = [];
     if (media_expondencial > 10.5) {
-      let entrada_valor = parseInt(parseInt(media_expondencial) * 0.75) - 1;
+      let entrada_valor = Math.round(Math.round(media_expondencial) * 0.75) - 1;
       console.log(media_expondencial);
       let mais_de = {
         _id: "maisde",
@@ -70,7 +73,7 @@ class Counter extends Component {
           let primeiro_a = {
             _id: "primeiroAMarcar",
             title: "TIME DA CASA MARCA PRIMEIRO",
-            valor: parseInt(media_01 * 0.75),
+            valor: Math.round(media_01 * 0.75),
           };
           local_entradas.push(primeiro_a);
         }
@@ -79,14 +82,14 @@ class Counter extends Component {
           let primeiro_a = {
             _id: "primeiroAMarcar",
             title: "TIME DE FORA MARCA PRIMEIRO",
-            valor: parseInt(media_02 * 0.75),
+            valor: Math.round(media_02 * 0.75),
           };
           local_entradas.push(primeiro_a);
         }
       }
     } else if (media_expondencial <= 8.50) {
       let jogos = media_expondencial;
-      let entrada_valor = parseInt(jogos + ((jogos * 30) / 100)) + 1;
+      let entrada_valor = Math.round(jogos + ((jogos * 30.0) / 100)) + 1;
       console.log(media_expondencial);
       let menos_de = {
         _id: "menosde",
@@ -102,9 +105,6 @@ class Counter extends Component {
       };
       local_entradas.push(menos_de);
     }
-
-    
-
     this.setState({ entradas: local_entradas });
   }
 
